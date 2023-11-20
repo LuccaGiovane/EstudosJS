@@ -1,27 +1,43 @@
-let cont = 0;
-
 const listaDeTeclas =
     document.querySelectorAll('.tecla');
 
-
-function tocaSom(idElementoAudio)
+function tocaSom(seletorAudio)
 {
-    document.querySelector(idElementoAudio).play();
+    const elemento = document.querySelector(seletorAudio).play();
+
+    if(elemento != null && elemento.localName === 'audio')
+    {
+        elemento.play();
+    }
+    else
+    {
+        alert("Elemento não encontrado!");
+    }
 }
 
-
-while(cont < listaDeTeclas.length)
+for(let i=0; i<listaDeTeclas.length; i++)
 {
-    const tecla = listaDeTeclas[cont]
+    const tecla = listaDeTeclas[i]
     const instrumento = tecla.classList[1];
 
-    //template string
-    const idAudio = `#som_${instrumento}`
 
-    tecla.onclick = function ()//função anonima, so existe nesse contexto
+    const idAudio = `#som_${instrumento}` //Template string
+
+    tecla.onclick = function ()//Função anonima, so existe nesse contexto
         {
             tocaSom(idAudio);
         }
 
-    cont++;
+    tecla.onkeydown = function (evento)//Quando pressionar via enter/tab acende vermelho
+        {
+            if(evento.code ==='space' || evento.code === 'enter')
+            {
+                tecla.classList.add('ativa');
+            }
+        }
+
+    tecla.onkeyup = function ()//remove a cor vermelha setada com a anterior
+    {
+        tecla.classList.remove('ativa');
+    }
 }
