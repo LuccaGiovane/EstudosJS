@@ -285,7 +285,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: right;
     border-radius: 0.8rem;
     border: 0.2rem solid var(--azul-royal, #144480);
-    /background: var(--fundo-modal-2, #1B293B);
+   / background: var(--fundo-modal-2, #1B293B);
 }
 
 .app__section-task-header__li {
