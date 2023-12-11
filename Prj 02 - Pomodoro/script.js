@@ -12,10 +12,13 @@ const tempoNaTela = document.querySelector('#timer');
 
 
 const musicaFocoInput = document.querySelector('#alternar-musica');
-const musica = new Audio('/sons/luna-rise-part-one.mp3');
+const musica = new Audio('sons/luna-rise-part-one.mp3')
+const audioPlay = new Audio('sons/play.wav');
+const audioPausa = new Audio('sons/pause.mp3');
+const audioTempoFinalizado = new Audio('.sons/beep.mp3')
 
 
-let tempoDecorridoEmSegundos = 1500;
+let tempoDecorridoEmSegundos = 3000;
 let intervaloId = null;
 
 musica.loop = true;
@@ -32,21 +35,21 @@ musicaFocoInput.addEventListener('change', () =>
 })
 
 focoBt.addEventListener('click', () => {
-    tempoDecorridoEmSegundos = 1500
+    tempoDecorridoEmSegundos = 3000
     alterarContexto('foco')
     focoBt.classList.add('active')
 })
 
 
 curtoBt.addEventListener('click', () => {
-    tempoDecorridoEmSegundos = 300
+    tempoDecorridoEmSegundos = 600
     alterarContexto('descanso-curto')
     curtoBt.classList.add('active')
 })
 
 
 longoBt.addEventListener('click', () => {
-    tempoDecorridoEmSegundos = 900
+    tempoDecorridoEmSegundos = 1200
     alterarContexto('descanso-longo')
     longoBt.classList.add('active')
 })
@@ -91,6 +94,7 @@ const contagemRegressiva = () =>
 {
     if(tempoDecorridoEmSegundos <= 0)
     {
+        audioTempoFinalizado.play();
         alert('Tempo finalizado!');
         zerar();
         return;
@@ -105,9 +109,11 @@ function iniciarOuPausar()
 {
     if(intervaloId)
     {
+        audioPausa.play()
         zerar();
         return;
     }
+    audioPlay.play()
     intervaloId = setInterval(contagemRegressiva, 1000);
     iniciarOuPausarBt.textContent = "Pausar";
     simboloPausePlay.setAttribute('src', `imagens/pause.png`);
