@@ -12,13 +12,19 @@ function onSpeak(e)
 {
     chute = e.results[0][0].transcript;
     exibeChuteNaTela(chute);
+    verificaValidadeDoChute(chute);
 }
 
 function exibeChuteNaTela(chute)
 {
     elementoChute.innerHTML =
         `
-        <div>Você disse</div>
-        <span class=”box”>${chute}</span>
+            <div>Você disse</div>
+            <span class="box">${chute}</span>
         `
 }
+
+recognition.addEventListener('end', () =>
+{
+    recognition.start();
+})
